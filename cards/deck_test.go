@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"testing"
 )
@@ -24,12 +25,21 @@ func TestNewDeck(t *testing.T) {
 func TestSaveToDeckAndNewDeckFromFile(t *testing.T) {
 	errOfRemove := os.Remove("_deckTesting")
 	if errOfRemove != nil {
-		return
+		fmt.Println(errOfRemove)
 	}
 
 	deck := newDeck()
 	errOfSaveFile := deck.saveToFile("_deckTesting")
 	if errOfSaveFile != nil {
-		return
+		t.Errorf("failed to add file")
+	}
+
+	loadedDeck := newDeckFromFile("_deckTesting")
+	if len(loadedDeck) != 16 {
+		t.Errorf("Expected 16 cards in deck, but got %v", len(loadedDeck))
+	}
+	errOfRemove2 := os.Remove("_deckTesting")
+	if errOfRemove2 != nil {
+		t.Errorf("failed to remove file")
 	}
 }
