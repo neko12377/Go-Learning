@@ -32,14 +32,22 @@ func TestSaveToDeckAndNewDeckFromFile(t *testing.T) {
 	errOfSaveFile := deck.saveToFile("_deckTesting")
 	if errOfSaveFile != nil {
 		t.Errorf("failed to add file")
+	} else {
+		fmt.Println("file saved")
 	}
 
 	loadedDeck := newDeckFromFile("_deckTesting")
 	if len(loadedDeck) != 16 {
 		t.Errorf("Expected 16 cards in deck, but got %v", len(loadedDeck))
+	} else {
+		fmt.Println("Deck created!")
+
 	}
+
 	errOfRemove2 := os.Remove("_deckTesting")
 	if errOfRemove2 != nil {
 		t.Errorf("failed to remove file")
+	} else {
+		fmt.Println("_deckTesting removed")
 	}
 }
